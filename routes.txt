@@ -1,0 +1,46 @@
+*** (web.php/api.php)The routes/web.php file defines routes that are for your web interface. These routes are assigned the web middleware group, which provides features like session state and CSRF protection. The routes in routes/api.php are stateless and are assigned the api middleware group
+
+***Available Router Methods
+Route::get($uri, $callback);
+Route::post($uri, $callback);
+Route::put($uri, $callback);
+Route::patch($uri, $callback);
+Route::delete($uri, $callback);
+Route::options($uri, $callback);
+
+
+*** route type matching - 
+Route::match(['get', 'post'], '/', function () {
+    //
+});
+ 
+Route::any('/', function () {
+    //
+});
+
+*** redirect route 
+Route::redirect('/here', '/there');
+
+***if route return only view - 
+Route::view('/welcome', 'welcome'); 
+Route::view('/welcome', 'welcome', ['name' => 'Taylor']); ////with parameter
+
+*** to see route list - 
+php artisan route:list
+
+*** Routes parameters 
+Route::get('/user/{id}', function ($id) {
+    return 'User '.$id;
+});
+Route::get('/posts/{post}/comments/{comment}', function ($postId, $commentId) {
+    //
+});
+
+***Optional parameters
+Route::get('/user/{name?}', function ($name = null) {
+    return $name;
+});
+ 
+Route::get('/user/{name?}', function ($name = 'John') {
+    return $name;
+});

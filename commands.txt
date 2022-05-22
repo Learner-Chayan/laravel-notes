@@ -1,0 +1,13 @@
+***Create project : 
+composer create-project laravel/laravel [project name]
+
+***JavaScript & CSS & auth Scaffolding
+-composer require laravel/ui
+-php artisan ui:auth
+
+***Migration database
+php artisan migrate
+
+
+***Create middleware
+php artisan make:middleware AdminMIddleware
