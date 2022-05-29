@@ -1,0 +1,35 @@
+
+//method--
+    public function show($id){...}
+//Route --
+    Route::get('/user/{id}', [UserController::class, 'show']);
+
+
+### Single Action Controllers 
+    [ php artisan make:controller ProvisionServer --invokable ]
+    //method-- [only single method will there]
+        public function __invoke()
+            {
+                // ...
+            }
+    //Route --
+        Route::post('/server', ProvisionServer::class);
+note : for single action controllers do not need to specify 
+method name in route
+
+### middleware in controller 
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('log')->only('index');
+        $this->middleware('subscribed')->except('store');
+    }
+
+note : Middleware may be assigned to the controller's routes in your route files:
+    or
+    you may find it convenient to specify middleware within your controller's
+    constructor.
+
+
+### RESOURCE CONTROLLER
+    php artisan make:controller PhotoController --resource

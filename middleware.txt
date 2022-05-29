@@ -1,0 +1,91 @@
+there are several middleware included in the Laravel framework, 
+including middleware for authentication and CSRF protection.
+ All of these middleware are located in the 
+app/Http/Middleware directory.
+
+
+**** handle function of a middleware
+    public function handle($request, Closure $next)
+        {
+            if ($request->input('token') !== 'my-secret-token') {
+                return redirect('home');
+            }
+    
+            return $next($request);
+    }
+Note : n this middleware, we will only allow access 
+to the route if the supplied token input matches a specified value. Otherwise, 
+we will redirect the users back to the home URI
+
+
+
+
+
+**** another example 
+public function handle($request, Closure $next)
+    {
+        $response = $next($request);
+ 
+        // Perform action
+ 
+        return $response;
+    }
+notes : However, this middleware would perform its task after the request 
+is handled by the application:
+
+*** Registering Middleware
+***Global Middleware
+If you want a middleware to run during every HTTP request to your application,
+ list the middleware class in the $middleware property of your 
+ app/Http/Kernel.php class.
+
+***Assigning Middleware To Routes
+----- app/Http/Kernel.php
+protected $routeMiddleware = [
+    'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+    'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+    'your middleware name ' => path here 
+];
+
+route => 
+Route::get('/profile', function () {
+    //
+})->middleware('auth');
+
+***multiple middleware
+Route::get('/', function () {
+    //
+})->middleware(['first', 'second']);
+
+
+
+
+
+
+***GROUP OF WITHOUT MIDDLEWARE
+Route::withoutMiddleware([EnsureTokenIsValid::class])->group(function () {
+    Route::get('/profile', function () {
+        //
+    });
+}); 
+
+
+
+
+
+***GROUP OF MIDDLEWARE
+protected $middlewareGroups = [
+    'web' => [
+        \App\Http\Middleware\EncryptCookies::class,
+        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+        \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \App\Http\Middleware\VerifyCsrfToken::class,
+        \Illuminate\Routing\Middleware\SubstituteBindings::class,
+    ],
+ 
+    'api' => [
+        'throttle:api',
+        \Illuminate\Routing\Middleware\SubstituteBindings::class,
+    ],
+];

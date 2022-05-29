@@ -1,0 +1,128 @@
+
+*** php artisan make:migration [migration_file_name_here]
+Note : It will generate migration file on database/migration folder
+
+*** php artisan make:migration my_migration
+Note : If you write migration name like this, then it will create 
+      simple migration file just.
+
+*** php artisan make:migration create_my_migration_table
+Note : it will create with some simple source code. which help you to
+      add new column easily.
+
+*** php artisan migrate:status 
+Note : It will show status only 
+
+*** php artisan migrate --force
+Note :  Some migration can lose data , in these time migration stop
+    to run . That moment you can force it to run .
+
+###Rolling Back Migrations
+*** php artisan migrate:rollback
+Note : It will roll back the last migration
+
+php artisan migrate:rollback --step=5
+Note : for specific steps migration rollback
+
+*** php artisan migrate:reset
+Note: The migrate:reset command will roll back all of your 
+application's migrations:
+
+*** php artisan migrate:refresh
+Note : the following command will roll back and re-migrate migrations:
+
+*** php artisan migrate:refresh --step=5
+Note : roll back and remigrate step 5
+
+
+
+
+
+*** AVAILABLE COLUMN TYPES 
+bigIncrements
+bigInteger
+binary
+boolean
+char
+dateTimeTz
+dateTime
+date
+decimal
+double
+enum
+float
+foreignId
+foreignIdFor
+foreignUuid
+geometryCollection
+geometry
+id
+increments
+integer
+ipAddress
+json
+jsonb
+lineString
+longText
+macAddress
+mediumIncrements
+mediumInteger
+mediumText
+morphs
+multiLineString
+multiPoint
+multiPolygon
+nullableMorphs
+nullableTimestamps
+nullableUuidMorphs
+point
+polygon
+rememberToken
+set
+smallIncrements
+smallInteger
+softDeletesTz
+softDeletes
+string
+text
+timeTz
+time
+timestampTz
+timestamp
+timestampsTz
+timestamps
+tinyIncrements
+tinyInteger
+tinyText
+unsignedBigInteger
+unsignedDecimal
+unsignedInteger
+unsignedMediumInteger
+unsignedSmallInteger
+unsignedTinyInteger
+uuidMorphs
+uuid
+year
+
+
+
+*** Indexes  ----------------
+
+Command	                                   Description
+........................          ..............................
+$table->primary('id');	                Adds a primary key.
+$table->primary(['id', 'parent_id']);	Adds composite keys.
+$table->unique('email');	            Adds a unique index.
+$table->index('state');	                Adds an index.
+$table->fullText('body');	            Adds a full text index (MySQL/PostgreSQL).
+$table->fullText('body')->language('english');	Adds a full text index of the specified language (PostgreSQL).
+$table->spatialIndex('location');	    Adds a spatial index (except SQLite).
+
+
+*** Foreign Key Constraints ------------
+.........................................
+Schema::table('posts', function (Blueprint $table) {
+    $table->unsignedBigInteger('user_id');
+ 
+    $table->foreign('user_id')->references('id')->on('users');
+});
