@@ -1,0 +1,89 @@
+
+***Retrieving models - basic
+.................
+use App\Models\Flight;
+ 
+foreach (Flight::all() as $flight) {
+    echo $flight->name;
+}
+
+
+***Building queries
+$flights = Flight::where('active', 1)
+               ->orderBy('name')
+               ->take(10)
+               ->get();
+
+
+***Refresh models
+$flight = Flight::where('number', 'FR 900')->first();
+ 
+$freshFlight = $flight->fresh();
+
+
+
+***Advanced Subqueries
+return Destination::addSelect(['last_flight' => Flight::select('name')
+    ->whereColumn('destination_id', 'destinations.id')
+    ->orderByDesc('arrived_at')
+    ->limit(1)
+])->get();
+
+
+***Retrieving Single Models / Aggregates
+$flight = Flight::find(1);
+ 
+// Retrieve the first model matching the query constraints...
+$flight = Flight::where('active', 1)->first();
+ 
+// Alternative to retrieving the first model matching the query constraints...
+$flight = Flight::firstWhere('active', 1);
+
+$flight = Flight::findOr(1, function () {
+    // ...
+});
+ 
+$flight = Flight::where('legs', '>', 3)->firstOr(function () {
+    // ...
+});
+
+
+***INSERT 
+public function store(Request $request)
+    {
+        // Validate the request...
+ 
+        $flight = new Flight;
+        $flight->name = $request->name;
+        $flight->save();
+    }
+****UPDATE 
+use App\Models\Flight;
+ ---
+$flight = Flight::find(1);
+$flight->name = 'Paris to London';
+$flight->save();
+
+---
+Flight::where('active', 1)
+      ->where('destination', 'San Diego')
+      ->update(['delayed' => 1]);
+
+
+***DELETING
+
+use App\Models\Flight;
+
+$flight = Flight::find(1);
+$flight->delete();
+
+    delete with primary key 
+    .......................
+
+    Flight::destroy(1);
+    Flight::destroy(1, 2, 3);
+    Flight::destroy([1, 2, 3]);
+    Flight::destroy(collect([1, 2, 3]));
+
+    .........using queries
+    $deleted = Flight::where('active', 0)->delete();

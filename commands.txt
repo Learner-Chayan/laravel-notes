@@ -18,6 +18,10 @@ php artisan make:controller ControllerName
 php artisan make:controller ProvisionServer --invokable
 php artisan make:controller PhotoController --resource
 
+***Models
+php artisan make:model [modelName]
+php artisan make:model Flight --migration 
+
 
 ***Migration
 php artisan make:migration [migration_file_name_here]

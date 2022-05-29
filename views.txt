@@ -1,0 +1,39 @@
+In route or controller , first one for route: 
+..........
+Route::get('/', function () {
+    return view('greeting', ['name' => 'James']);
+});
+Note : This return greeting.blade.php and passing name param to file
+
+
+***
+use Illuminate\Support\Facades\View;
+
+return View::make('greeting', ['name' => 'James']);
+Note : make can be used to returning view file
+
+
+*** 
+Nested view directories 
+return view('admin.profile', $data);
+Note : return resources/views/admin/profile.blade.php
+
+
+***
+Determing if a view exist
+
+use Illuminate\Support\Facades\View;
+ 
+if (View::exists('emails.customer')) {
+    //
+}
+
+
+***
+Passing data to view 
+
+return view('greetings', ['name' => 'Victoria']);
+
+return view('greeting')
+            ->with('name', 'Victoria')
+            ->with('occupation', 'Astronaut');

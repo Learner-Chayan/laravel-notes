@@ -1,0 +1,12 @@
+Command : 
+.........
+php artisan make:component Alert
+
+note : it will create template at resources/views/components
+    and component class into app/View/Components 
+
+
+***create component into sub directory
+php artisan make:component Forms/Input
+
+...........do some study about component 

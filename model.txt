@@ -1,0 +1,83 @@
+***
+php artisan make:model Flight --all
+Note: Shortcut to generate a model, migration, factory, seeder, policy, controller, and form requests.
+
+***
+php artisan make:model Flight --factory
+php artisan make:model Flight -f
+Note: Generate a model and a FlightFactory class.
+
+***
+php artisan make:model Flight --seed
+php artisan make:model Flight -s
+Notes : Generate a model and a FlightSeeder class...
+ 
+***
+php artisan make:model Flight --controller
+php artisan make:model Flight -c
+Notes: Generate a model and a FlightController class.
+ 
+***
+php artisan make:model Flight --controller --resource --requests
+php artisan make:model Flight -crR
+Note: Generate a model, FlightController resource class, and form request classes
+ 
+***
+php artisan make:model Flight --policy
+Note: Generate a model and a FlightPolicy class.
+
+*** 
+php artisan make:model Flight -mfsc
+Note:Generate a model and a migration, factory, seeder, and controller.
+
+ 
+ 
+***
+php artisan make:model Member --pivot
+Note:  Generate a pivot model.
+
+
+
+
+
+
+
+
+
+
+
+**************MODEL NOTES ***************************
+++++
+If your model's corresponding database table does not fit this convention, you may manually specify the 
+model's table name by defining a table property on the model:
+ ---
+    class Flight extends Model
+    {
+        protected $table = 'my_flights';
+    }
+
+++++
+created_at and updated_at - 
+f you do not want these columns to be automatically managed by Eloquent, you should define a $timestamps 
+property on your model with a value of false:
+ ---
+     class Flight extends Model
+    {
+        public $timestamps = false;
+    }
+
+++++
+Customize date format 
+    protected $dateFormat = 'U';
+
+
++++
+Database connection - 
+By default, all Eloquent models will use the default database connection that is configured for your 
+application. If you would like to specify a different connection that should be used when interacting 
+with a particular model, you should define a $connection property on the model:
+ ---
+ class Flight extends Model
+{
+    protected $connection = 'sqlite';
+}
